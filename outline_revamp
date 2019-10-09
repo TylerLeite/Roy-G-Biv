@@ -1,0 +1,123 @@
+GAME
+-----------------------
+init()
+    -initializes opengl and sdl
+
+start()
+    -starts the main loop
+    -call startMenu()
+
+limitFramerate()
+readSettings()
+writeSettings()
+
+NOTE: the rest of the functions call limitFramerate
+startMenu()
+    -display current menuu
+    -handle mouse / keyboard input for interacting with the menu
+    -calls startStory(), startEndless(), startBattle(), startCoop(), credits()
+
+startStory()
+    -read from prog.dat to find current level (default 0 if not set)
+    -call map.load(map_LVL.map)
+    -on exit, should return to the menu loop (called from startMenu)
+
+startEndless()
+    -keep track of levels completed
+    -call map.generate() to make harder random levels as time goes on
+    -ends when player runs out of restarts (gain 1 every couple of levels or 
+     potentially every level)
+
+credits()
+    -simply display credits
+
+secondary concerns: 
+startBattle()
+    -two-player mode, try to trap the other player
+    -local multiplayer / online mode
+
+startCoop()
+    -two players on the same map
+    -two exits
+
+
+MAP
+-----------------------
+load(filename)
+generate()
+walkable(x, y)
+
+check_status()
+    -return whether the level has been won
+
+update()
+render()
+
+move_player()
+    -handle grid-based movement of players
+    -handle per-pixel movement for smooth transitions between tiles
+
+input()
+    -handle input and call player.move, etc
+
+render()
+    -call tile->render()
+    -call mob->render()
+    -call renderLevelCounter()
+    -call renderStepCounter()
+    -call renderLogo()
+
+renderLevelCounter()
+    -write level: LVL
+renderStepCounter()
+    -write Steps: X / Y
+renderLogo()
+    -ROY G BIV
+
+RENDER
+-----------------------
+drawSprite()
+    -draw a static sprite at a certain place on screen
+
+drawSpriteOnMap()
+    -draw a static sprite at a certain place on the map
+
+animate()
+    -draw an animated sprite at a certain place on the screen with the correct
+     frame of animation
+     
+animateOnMap()
+
+drawText()
+    -write text to screen at a certain place on screen, with a certain side
+
+TILE
+-----------------------
+subclasses:
+    auto_tile
+    normal_tile
+    block_tile
+    shove_tile
+    slip_tile    
+
+MOB
+-----------------------
+render()
+
+update()
+    -run ai
+    -call move(DIR)
+
+move()
+
+BUTTON
+-----------------------
+render()
+
+SETTINGS
+-----------------------
+map<string, int> mapProperties
+    -width, height
+    -tileWidth, tileHeight
+
+map<string, int> vidProperties

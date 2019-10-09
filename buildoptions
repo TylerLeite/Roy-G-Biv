@@ -1,0 +1,1 @@
+g++ -o main *.cpp -lSDL -lGL -lGLU -lSDL_image
